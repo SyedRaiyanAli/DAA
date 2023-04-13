@@ -1,0 +1,70 @@
+#include <stdio.h>
+int a[]={12,32,5,78,3,1,65,75,23,11};
+int i,j,k;
+int b[10];
+void merge(int low,int mid,int high)
+{
+	int h,i,j;
+	h=low;
+	i=low;
+	j=mid+1;
+	
+	while(h<=mid && j<=high)
+	{
+		if(a[h]<=a[j])
+		{
+			b[i]=a[h];
+			h=h+1;
+		}
+		else 
+		{
+			b[i]=a[j];
+			j=j+1;
+		}
+		i=i+1;
+	}
+	if (h>mid)
+	{
+		for(k=j;k<=h;k++)
+		{
+			b[i]=a[k];
+			i=i+1;
+		}
+	}
+	else{
+		for(k=h;k<=mid;k++)
+		{
+			b[i]=a[k];
+			i=i+1;
+		}
+	}
+	for(k=low;k<=high;k++)
+	{
+		a[k]=b[k];
+	}
+}
+void Merge_sort(int low,int high)
+{
+	if(low < high)
+	{
+		int mid;
+		mid=((low + high)/2);
+		Merge_sort(low,mid);
+		Merge_sort(mid+1,high);
+		merge(low,mid,high);
+	}
+}
+
+int main()
+{
+	
+	int low=0;
+	int high=9;
+	Merge_sort(low,high);
+	for(i=0;i<10;i++)
+	{
+		printf("%d ",a[i]);
+	}
+	return 0;
+	
+}
